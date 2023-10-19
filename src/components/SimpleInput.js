@@ -1,12 +1,76 @@
-const SimpleInput = (props) => {
+import { useState } from 'react';
+import useInput from '../hooks/use-input';
+const SimpleInput = () => {
+  // const { name, email, nameInputHandler, emailInputHandler } = useInput();
+  const { enterText, enteredInputHandler } = useInput();
+
+  // const [name, setName] = useState('');
+  const [nameTouched, setNameTouched] = useState(false); //touched : true
+
+  // const [email, setEmail] = useState('');
+  const [emailTouched, setEmailTouched] = useState(false);
+
+  const isNameValid = enterText.name.trim().length > 0;
+  // .trim() !== ''
+  // 재평가가 너무 많아지지 않게, 그냥 변수로 준다.
+  const isNameInValid = !isNameValid && nameTouched;
+  // isNameValid(입력값이 없을 때) , nameTouched(false, ) : 입력값이 없고 (false), 입력창을 touch 햇음 (ture)
+  const isEmailValid = enterText.email.includes('@');
+  const isEmailInValid = !isEmailValid && emailTouched;
+  // isEmailValid의 입력값이 없고(false), 입력창을 touch했음 (true)
+
+  // const nameInputHandler = (e) => setName(e.target.value);
+  const nameBlurHandler = (e) => setNameTouched(true);
+
+  // const emailInputHandler = (e) => setEmail(e.target.value);
+  const emailBlurHandler = (e) => setEmailTouched(true);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    setNameTouched(true);
+    setEmailTouched(true);
+
+    if (!isNameValid || !isEmailValid) {
+      return;
+    }
+
+    // setName('');
+    // setEmail('');
+    setNameTouched(false);
+    setEmailTouched(false);
+  };
+
   return (
-    <form>
-      <div className='form-control'>
-        <label htmlFor='name'>Your Name</label>
-        <input type='text' id='name' />
+    <form onSubmit={submitHandler}>
+      <div className={`form-control ${isNameInValid ? 'invalid' : ''}`}>
+        <label htmlFor="name">Your Name</label>
+        <input
+          type="text"
+          id="name"
+          value={enterText.name}
+          onChange={enteredInputHandler}
+          onBlur={nameBlurHandler}
+        />
+        {isNameInValid && <p className="error-text">이름을 입력하세요.</p>}
       </div>
+
+      <div className={`form-control ${isEmailInValid ? 'invalid' : ''}`}>
+        <label htmlFor="name">E-mail</label>
+        <input
+          type="text"
+          id="email"
+          value={enterText.email}
+          onChange={enteredInputHandler}
+          onBlur={emailBlurHandler}
+        />
+        {isEmailInValid && (
+          <p className="error-text">이메일을 정확히 입력해주세요.</p>
+        )}
+      </div>
+
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!isNameValid || !isEmailValid}>Submit</button>
       </div>
     </form>
   );

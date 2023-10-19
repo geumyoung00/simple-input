@@ -81,8 +81,8 @@ button:active {
 
 button:disabled {
   background-color: #ccc;
-cursor: not-allowed;
-border: none;
+  cursor: not-allowed;
+  border: none;
 }
 
 .form-actions {
