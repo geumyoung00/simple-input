@@ -4,13 +4,23 @@ const useInput = () => {
   //공통 state만들기
   const [enteredText, setEnteredText] = useState('');
 
+  const [inputTouched, setInputTouched] = useState(false); //touched : true
+
   // 공통 input handler 만들기
   const enteredInputHandler = (e) => {
     setEnteredText(e.target.value);
-    console.log('enteredText___', enteredText);
   };
 
-  return { enteredText, enteredInputHandler };
+  const inputBlurHandler = (e) => {
+    setInputTouched(true);
+  };
+
+  return {
+    enteredText,
+    enteredInputHandler,
+    inputTouched,
+    inputBlurHandler,
+  };
 };
 
 export default useInput;
