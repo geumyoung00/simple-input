@@ -4,14 +4,37 @@ const useInput = () => {
   //공통 state만들기
   const [enteredText, setEnteredText] = useState('');
   const [inputTouched, setInputTouched] = useState(false); //touched : true
-  let [isTextValid, setIsTextValid] = useState(false);
+  let [isTextInputInvalid, setIsTextInputInvalid] = useState(false);
+
+  // 공통 input handler 만들기
+  const inputBlurHandler = (e) => {
+    setInputTouched(true);
+  };
 
   const validator = (text, id) => {
-    if (id === 'email') {
-      text.includes('@') ? setIsTextValid(true) : setIsTextValid(false);
+    let isNameValid = text.trim().length > 0;
+    let isEmailValid = text.includes('@');
+
+    console.log('inputTouched___', inputTouched);
+
+    if (id === 'name') {
+      !isNameValid && inputTouched
+        ? setIsTextInputInvalid(true)
+        : setIsTextInputInvalid(false);
     } else {
-      text.trim().length > 0 ? setIsTextValid(true) : setIsTextValid(false);
+      !isEmailValid && inputTouched
+        ? setIsTextInputInvalid(true)
+        : setIsTextInputInvalid(false);
     }
+
+    // const isInputInvalid = !isInputValid && inputTouched;
+
+    // if (id === 'email') {
+    //   text.includes('@') ? setIsTextValid(true) : setIsTextValid(false);
+    // } else {
+    //   text.trim().length > 0 ? setIsTextValid(true) : setIsTextValid(false);
+    // }
+
     // console.log(text);
     // if (text.trim().length > 0) {
     //   setIsTextValid(true);
@@ -20,9 +43,6 @@ const useInput = () => {
     // }
   };
 
-  // console.log('isTextValid:', isTextValid);
-
-  // 공통 input handler 만들기
   const enteredInputHandler = (e) => {
     const text = e.target.value;
     const id = e.target.id;
@@ -30,12 +50,7 @@ const useInput = () => {
     validator(text, id);
   };
 
-  const inputBlurHandler = () => setInputTouched(true);
-
-  // console.log('isTextValid:', isTextValid);
-
-  // const isInputValid = name.trim().length > 0 || email.includes('@');
-  // const isInputInvalid = !isInputValid && inputTouched;
+  console.log('isTextInputInvalid___', isTextInputInvalid);
 
   return {
     enteredText,
@@ -43,7 +58,7 @@ const useInput = () => {
     inputTouched,
     inputBlurHandler,
     validator,
-    isTextValid,
+    isTextInputInvalid,
   };
 };
 

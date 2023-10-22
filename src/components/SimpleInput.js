@@ -4,31 +4,33 @@ const SimpleInput = () => {
   const {
     enteredText: name,
     enteredInputHandler: nameInputHandler,
-    inputTouched: nameTouched,
+    // inputTouched: nameTouched,
     inputBlurHandler: nameBlurHandler,
-    isTextValid: isNameValid,
+    // isTextValid: isNameValid,
+    isTextInputInvalid: isNameInputInvalid,
   } = useInput();
 
   const {
     enteredText: email,
     enteredInputHandler: emailInputHandler,
-    inputTouched: emailTouched,
+    // inputTouched: emailTouched,
     inputBlurHandler: emailBlurHandler,
-    isTextValid: isEmailValid,
+    // isTextValid: isEmailValid,
+    isTextInputInvalid: isEmailInputInvalid,
   } = useInput();
 
   // const isNameValid = name.trim().length > 0; // .trim() !== ''
   // 재평가가 너무 많아지지 않게, 그냥 변수로 준다.
 
-  const isNameInvalid = !isNameValid && nameTouched;
+  // const isNameInputInvalid = !isNameValid && nameTouched;
   // isNameValid(입력값이 없을 때) , nameTouched(false, ) : 입력값이 없고 (false), 입력창을 touch 햇음 (ture)
 
   // const isEmailValid = email.includes('@');
-  const isEmailInvalid = !isEmailValid && emailTouched;
+  // const isEmailInputInvalid = !isEmailValid && emailTouched;
   // isEmailValid의 입력값이 없고(false), 입력창을 touch했음 (true)
 
-  console.log('isNameValid:', isNameValid);
-  console.log('isEmailValid:', isEmailValid);
+  // console.log('isNameInputInvalid:', isNameInputInvalid);
+  // console.log('isEmailInputInvalid:', isEmailInputInvalid);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -48,7 +50,7 @@ const SimpleInput = () => {
 
   return (
     <form onSubmit={submitHandler}>
-      <div className={`form-control ${isNameInvalid ? 'invalid' : ''}`}>
+      <div className={`form-control ${isNameInputInvalid ? 'invalid' : ''}`}>
         <label htmlFor="name">Your Name</label>
         <input
           type="text"
@@ -57,10 +59,10 @@ const SimpleInput = () => {
           onChange={nameInputHandler}
           onBlur={nameBlurHandler}
         />
-        {isNameValid ? null : <p className="error-text">이름을 입력하세요.</p>}
+        {isNameInputInvalid && <p className="error-text">이름을 입력하세요.</p>}
       </div>
 
-      <div className={`form-control ${isEmailInvalid ? 'invalid' : ''}`}>
+      <div className={`form-control ${isEmailInputInvalid ? 'invalid' : ''}`}>
         <label htmlFor="name">E-mail</label>
         <input
           type="text"
@@ -69,7 +71,7 @@ const SimpleInput = () => {
           onChange={emailInputHandler}
           onBlur={emailBlurHandler}
         />
-        {isEmailInValid && (
+        {isEmailInputInvalid && (
           <p className="error-text">이메일을 정확히 입력해주세요.</p>
         )}
       </div>
