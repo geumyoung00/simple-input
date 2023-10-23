@@ -1,6 +1,7 @@
 import useInput from '../hooks/use-input';
 const SimpleInput = () => {
   // const { name, email, nameInputHandler, emailInputHandler } = useInput();
+
   const {
     enteredText: name,
     enteredInputHandler: nameInputHandler,
@@ -8,7 +9,7 @@ const SimpleInput = () => {
     inputBlurHandler: nameBlurHandler,
     // isTextValid: isNameValid,
     isTextInputInvalid: isNameInputInvalid,
-  } = useInput();
+  } = useInput((name) => name.trim().length > 0);
 
   const {
     enteredText: email,
@@ -17,7 +18,7 @@ const SimpleInput = () => {
     inputBlurHandler: emailBlurHandler,
     // isTextValid: isEmailValid,
     isTextInputInvalid: isEmailInputInvalid,
-  } = useInput();
+  } = useInput((email) => email.includes('@'));
 
   // const isNameValid = name.trim().length > 0; // .trim() !== ''
   // 재평가가 너무 많아지지 않게, 그냥 변수로 준다.
@@ -29,9 +30,7 @@ const SimpleInput = () => {
   // const isEmailInputInvalid = !isEmailValid && emailTouched;
   // isEmailValid의 입력값이 없고(false), 입력창을 touch했음 (true)
 
-  // console.log('isNameInputInvalid:', isNameInputInvalid);
-  // console.log('isEmailInputInvalid:', isEmailInputInvalid);
-
+  console.log('isNameInputInvalid:', isNameInputInvalid);
   const submitHandler = (e) => {
     e.preventDefault();
     // setNameTouched(true);
