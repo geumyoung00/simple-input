@@ -8,7 +8,8 @@ const SimpleInput = () => {
     // inputTouched: nameTouched,
     inputBlurHandler: nameBlurHandler,
     // isTextValid: isNameValid,
-    isTextInputInvalid: isNameInputInvalid,
+    isEnteredInputInvalid: isNameInputInvalid,
+    reset: nameReset,
   } = useInput((name) => name.trim().length > 0);
 
   const {
@@ -17,22 +18,14 @@ const SimpleInput = () => {
     // inputTouched: emailTouched,
     inputBlurHandler: emailBlurHandler,
     // isTextValid: isEmailValid,
-    isTextInputInvalid: isEmailInputInvalid,
+    isEnteredInputInvalid: isEmailInputInvalid,
+    reset: emailReset,
   } = useInput((email) => email.includes('@'));
 
-  // const isNameValid = name.trim().length > 0; // .trim() !== ''
-  // 재평가가 너무 많아지지 않게, 그냥 변수로 준다.
-
-  // const isNameInputInvalid = !isNameValid && nameTouched;
-  // isNameValid(입력값이 없을 때) , nameTouched(false, ) : 입력값이 없고 (false), 입력창을 touch 햇음 (ture)
-
-  // const isEmailValid = email.includes('@');
-  // const isEmailInputInvalid = !isEmailValid && emailTouched;
-  // isEmailValid의 입력값이 없고(false), 입력창을 touch했음 (true)
-
-  console.log('isNameInputInvalid:', isNameInputInvalid);
   const submitHandler = (e) => {
     e.preventDefault();
+    nameReset();
+    emailReset();
     // setNameTouched(true);
     // setEmailTouched(true);
 
@@ -76,8 +69,10 @@ const SimpleInput = () => {
       </div>
 
       <div className="form-actions">
-        <button>Submit</button>
-        {/* <button disabled={!isNameValid || !isEmailValid}>Submit</button> */}
+        {/* <button>Submit</button> */}
+        <button disabled={!isEmailInputInvalid || !isNameInputInvalid}>
+          Submit
+        </button>
       </div>
     </form>
   );
