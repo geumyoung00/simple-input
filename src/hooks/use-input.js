@@ -18,12 +18,13 @@ const useInput = (validate) => {
   };
 
   const reset = () => {
-    setInputTouched(true);
+    // setInputTouched(true);
 
-    if (!isEnteredTextValid) return;
-
+    // if (!isEnteredInputInvalid) return;
     setEnteredText('');
     setInputTouched(false);
+
+    console.log('enteredText:', enteredText);
   };
 
   return {

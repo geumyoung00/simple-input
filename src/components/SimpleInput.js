@@ -24,20 +24,11 @@ const SimpleInput = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    if (!isNameInputInvalid && isEmailInputInvalid) return;
+
     nameReset();
     emailReset();
-    // setNameTouched(true);
-    // setEmailTouched(true);
-
-    // if (!isNameValid || !isEmailValid) {
-    //   return;
-    // }
-
-    // setName('');
-    // setEmail('');
-
-    // setNameTouched(false);
-    // setEmailTouched(false);
   };
 
   return (
@@ -70,7 +61,9 @@ const SimpleInput = () => {
 
       <div className="form-actions">
         {/* <button>Submit</button> */}
-        <button disabled={!isEmailInputInvalid || !isNameInputInvalid}>
+        <button
+          disabled={isEmailInputInvalid || isNameInputInvalid ? 'disabled' : ''}
+        >
           Submit
         </button>
       </div>
