@@ -22,13 +22,13 @@ const SimpleInput = () => {
     reset: emailReset,
   } = useInput((email) => email.includes('@'));
 
-  console.log(isNameInputInvalid);
-  console.log(isEmailInputInvalid);
+  console.log('isNameInputInvalid:', isNameInputInvalid);
+  console.log('isEmailInputInvalid:', isEmailInputInvalid);
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (!isNameInputInvalid && isEmailInputInvalid) return;
+    if (isNameInputInvalid && isEmailInputInvalid) return;
 
     nameReset();
     emailReset();
