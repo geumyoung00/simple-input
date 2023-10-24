@@ -7,7 +7,7 @@ const SimpleInput = () => {
     enteredInputHandler: nameInputHandler,
     // inputTouched: nameTouched,
     inputBlurHandler: nameBlurHandler,
-    // isTextValid: isNameValid,
+    isEnteredTextValid: isNameValid,
     isEnteredInputInvalid: isNameInputInvalid,
     reset: nameReset,
   } = useInput((name) => name.trim().length > 0);
@@ -17,10 +17,13 @@ const SimpleInput = () => {
     enteredInputHandler: emailInputHandler,
     // inputTouched: emailTouched,
     inputBlurHandler: emailBlurHandler,
-    // isTextValid: isEmailValid,
+    isEnteredTextValid: isEmailValid,
     isEnteredInputInvalid: isEmailInputInvalid,
     reset: emailReset,
   } = useInput((email) => email.includes('@'));
+
+  console.log(isNameInputInvalid);
+  console.log(isEmailInputInvalid);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -61,11 +64,7 @@ const SimpleInput = () => {
 
       <div className="form-actions">
         {/* <button>Submit</button> */}
-        <button
-          disabled={isEmailInputInvalid || isNameInputInvalid ? 'disabled' : ''}
-        >
-          Submit
-        </button>
+        <button disabled={!(isEmailValid && isNameValid)}>Submit</button>
       </div>
     </form>
   );

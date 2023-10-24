@@ -34,6 +34,7 @@ const useInput = (validate) => {
     inputBlurHandler,
     validate,
     isEnteredInputInvalid,
+    isEnteredTextValid,
     reset,
   };
 };
