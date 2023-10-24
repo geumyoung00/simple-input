@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import basicInput from '../hooks/basic-input';
+import useBasicInput from '../hooks/use-basic';
 
 const BasicForm = (props) => {
   const [firstName, setFirstName] = useState('');
