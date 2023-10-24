@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import basicInput from '../hooks/basic-input';
 
 const BasicForm = (props) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+
   const [firstNameInputTouched, setFirstNameInputTouched] = useState(false);
   const [lastNameInputTouched, setLastNameInputTouched] = useState(false);
   const [emailInputTouched, setEmailInputTouched] = useState(false);
