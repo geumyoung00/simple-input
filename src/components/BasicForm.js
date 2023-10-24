@@ -1,54 +1,56 @@
-import { useState } from 'react';
 import useBasicInput from '../hooks/use-basic';
 
-const BasicForm = (props) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+const BasicForm = () => {
+  const {
+    enteredText: firstName,
+    inputHandler: firstNameHandler,
+    inputBlurHandler: firstNameBlurHandler,
+    isInputInvalid: isFirstNameInputInvalid,
+    reset: resetFirstName,
+    isEntredTextValid: isFirstNameValid,
+  } = useBasicInput((firstName) => firstName.trim().length > 0);
 
-  const [firstNameInputTouched, setFirstNameInputTouched] = useState(false);
-  const [lastNameInputTouched, setLastNameInputTouched] = useState(false);
-  const [emailInputTouched, setEmailInputTouched] = useState(false);
+  const {
+    enteredText: lastName,
+    inputHandler: lastNameHandler,
+    inputBlurHandler: lastNameBlurHandler,
+    isInputInvalid: isLastNameInputInvalid,
+    reset: resetLastName,
+    isEntredTextValid: isLastNameValid,
+  } = useBasicInput((lastName) => lastName.trim().length > 0);
 
-  const isFirstNameValid = firstName.trim().length > 0;
-  const isFirstNameInputInvalid = !isFirstNameValid && firstNameInputTouched;
+  const {
+    enteredText: email,
+    inputHandler: emailNameHandler,
+    inputBlurHandler: emailBlurHandler,
+    isInputInvalid: isEmailInputInvalid,
+    reset: resetEmail,
+    isEntredTextValid: isEmailValid,
+  } = useBasicInput((email) => email.includes('@'));
 
-  const isLastNameValid = lastName.trim().length > 0;
-  const isLastNameInputInvalid = !isLastNameValid && lastNameInputTouched;
+  console.log('isFirstNameInputInvalid__', isFirstNameInputInvalid);
+  console.log('isLastNameInputInvalid__', isLastNameInputInvalid);
+  console.log('isEmailInputInvalid__', isEmailInputInvalid);
 
-  const isEmailValid = email.includes('@');
-  const isEmailInputInvalid = !isEmailValid && emailInputTouched;
-
-  const firstNameHandler = (e) => setFirstName(e.target.value);
-  const lastNameHandler = (e) => setLastName(e.target.value);
-  const emailNameHandler = (e) => setEmail(e.target.value);
-
-  const firstNameBlurHandler = () => setFirstNameInputTouched(true);
-  const lastNameBlurHandler = () => setLastNameInputTouched(true);
-  const emailBlurHandler = () => setEmailInputTouched(true);
+  const isDisabledValid = !(
+    isFirstNameValid &&
+    isLastNameValid &&
+    isEmailValid
+  );
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    console.log(isFirstNameInputInvalid);
-    console.log(isLastNameInputInvalid);
-    console.log(isEmailInputInvalid);
 
     if (
       isFirstNameInputInvalid ||
       isLastNameInputInvalid ||
       isEmailInputInvalid
-    ) {
+    )
       return;
-    }
 
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-
-    setFirstNameInputTouched(false);
-    setLastNameInputTouched(false);
-    setEmailInputTouched(false);
+    resetFirstName();
+    resetLastName();
+    resetEmail();
   };
 
   return (
@@ -105,6 +107,7 @@ const BasicForm = (props) => {
       </div>
       <div className="form-actions">
         <button>Submit</button>
+        {/* <button disabled={isDisabledValid ? 'disabled' : ''}>Submit</button> */}
       </div>
     </form>
   );

@@ -1,27 +1,28 @@
 import { useState } from 'react';
 
 const useBasicInput = (validate) => {
-  const [entredText, setEnteredText] = useState('');
+  const [enteredText, setEnteredText] = useState('');
   const [inputTouched, setInputTouched] = useState(false);
 
-  const isEntredTextValid = validate(entredText);
+  const isEntredTextValid = validate(enteredText);
   const isInputInvalid = !isEntredTextValid && inputTouched;
 
   const inputHandler = (e) => setEnteredText(e.target.value);
   const inputBlurHandler = () => setInputTouched(true);
-  const resetinput = () => {
+
+  const reset = () => {
     setEnteredText('');
     setInputTouched(false);
   };
 
   return {
-    entredText,
+    enteredText,
     inputHandler,
     inputTouched,
     inputBlurHandler,
     isEntredTextValid,
     isInputInvalid,
-    resetinput,
+    reset,
   };
 };
 
