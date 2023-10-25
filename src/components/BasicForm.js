@@ -41,12 +41,7 @@ const BasicForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (
-      isFirstNameInputInvalid ||
-      isLastNameInputInvalid ||
-      isEmailInputInvalid
-    )
-      return;
+    if (!isFirstNameValid || !isLastNameValid || !isEmailValid) return;
 
     resetFirstName();
     resetLastName();
@@ -106,8 +101,8 @@ const BasicForm = () => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
-        {/* <button disabled={isDisabledValid ? 'disabled' : ''}>Submit</button> */}
+        {/* <button>Submit</button> */}
+        <button disabled={isDisabledValid ? 'disabled' : ''}>Submit</button>
       </div>
     </form>
   );
